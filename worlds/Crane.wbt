@@ -1,0 +1,231 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/ThreadMetalPlate.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/BakelitePlastic.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Soil.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/CorrugatedPlates.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/CorrodedMetal.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.07532971376227172 0.7823803729091674 0.6182284256737199 0.3089971762251273
+  position -10.283601606174145 1.6369338511664857 7.213801544540207
+}
+TexturedBackground {
+  texture "factory"
+}
+DEF Baskets Transform {
+  translation 0.7 0.7 1.5
+  scale 0.001 0.001 0.001
+  children [
+    Shape {
+      appearance CorrugatedPlates {
+      }
+      geometry Mesh {
+        url [
+          "../crane/basket.STL"
+        ]
+      }
+    }
+  ]
+}
+TexturedBackgroundLight {
+  texture "factory"
+}
+DEF vehicle Transform {
+  translation 0 0 4
+  rotation -1 0 0 1.5707963267948968
+  scale 0.001 0.001 0.001
+  children [
+    Shape {
+      appearance ThreadMetalPlate {
+        colorOverride 1 0.689357 0.130968
+        textureTransform TextureTransform {
+          scale 34 25
+        }
+      }
+      geometry Mesh {
+        url [
+          "../crane/vehicle.STL"
+        ]
+      }
+    }
+  ]
+}
+DEF crane Robot {
+  translation -332.00000000000006 -41.40000000000006 132.90000000000018
+  children [
+    Solid {
+      translation 336.79 45.33 -125.04
+      children [
+        Shape {
+          appearance CorrugatedPlates {
+          }
+          geometry Box {
+            size 11 0.1 0.1
+          }
+        }
+      ]
+    }
+    Display {
+      width 500
+      height 500
+    }
+    Robot {
+      translation 0.1 -0.2 1
+      rotation 0 -1 0 1.5708003061004252
+      children [
+        Pose {
+          rotation 0.5773502691896258 0.5773502691896258 -0.5773502691896258 2.0944
+          children [
+            Shape {
+            }
+          ]
+        }
+        Camera {
+          translation -126 45.5527 -331
+          rotation -0.11005501564698712 0.9939241413103996 -0.0016416002333932494 2.30918
+          children [
+            Pose {
+              translation -11.19 2.68 2.46
+              children [
+                Shape {
+                  appearance PBRAppearance {
+                  }
+                  geometry Cylinder {
+                    height 0.01
+                    radius 0.01
+                  }
+                }
+              ]
+            }
+          ]
+          name "cameraleft"
+          fieldOfView 1.5
+          width 3840
+          height 2160
+          near 0.1
+          far 100
+          antiAliasing TRUE
+        }
+      ]
+      name "robotleft"
+      controller "camera_left_controller"
+      battery [
+        0
+      ]
+    }
+    Robot {
+      translation 0.1 0 0.1
+      rotation 0 1 0 3.14159
+      children [
+        Transform {
+          translation -340.6 46 129
+          rotation 1 0 0 3.141592653589793
+          scale 0.001 0.001 0.001
+          children [
+            Shape {
+              appearance BakelitePlastic {
+              }
+              geometry Mesh {
+                url [
+                  "../crane/crane.STL"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+      name "robotmid"
+    }
+    Robot {
+      translation 0.1 0 -0.08
+      rotation 0 -1 0 1.5707963267948968
+      children [
+        Pose {
+          translation 0 0 -200
+          rotation 0.5773502691896258 0.5773502691896258 -0.5773502691896258 2.0943951023931957
+        }
+        Camera {
+          translation -124.931 45.3 -342.3
+          rotation -0.3744559224277548 -0.03586589257002588 -0.9265508080558427 -3.0455253071795862
+          children [
+            Pose {
+              children [
+                Shape {
+                  appearance PBRAppearance {
+                  }
+                  geometry Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+          ]
+          name "cameraright"
+          fieldOfView 1.5
+          width 3840
+          height 2160
+          near 0.1
+          far 100
+          antiAliasing TRUE
+          lens Lens {
+          }
+        }
+      ]
+      name "robotright"
+      controller "<extern>"
+    }
+  ]
+  name "crane"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  controller "pos_controller"
+  supervisor TRUE
+}
+Robot {
+  children [
+    Camera {
+      translation -2 2.33 4.04
+      children [
+        Pose {
+          children [
+            Shape {
+              appearance PBRAppearance {
+              }
+              geometry Cylinder {
+                height 0.1
+                radius 0.1
+              }
+            }
+          ]
+        }
+      ]
+      name "camera_2"
+      fieldOfView 2.094
+      width 3840
+      height 2160
+      near 0.1
+      far 100
+    }
+  ]
+  name "camera_2"
+  controller "camera_2_controller"
+}
+RectangleArena {
+  translation 3.68685 3.83421 0
+  floorSize 100 100
+  floorTileSize 20 20
+  floorAppearance Soil {
+  }
+  wallThickness 1
+  wallHeight 100
+  wallAppearance CorrodedMetal {
+  }
+}
